@@ -35,8 +35,10 @@ void serverTCP::Run()
 		if(listening == INVALID_SOCKET) {
 			break;
 		}
+		std::cout << "sokeres" << std::endl;
 		SOCKET client = WaitForConnection(listening);
-		if(client != INVALID_SOCKET) {
+		if(client != INVALID_SOCKET) 
+		{
 			closesocket(listening);
 			int BytesReceived = 0;
 			std::string message;
@@ -49,8 +51,10 @@ void serverTCP::Run()
 				}
 				ZeroMemory(buff, MAX_BUFFER_SIZE);
 				BytesReceived = recv(client, buff,MAX_BUFFER_SIZE,0);
-				if (BytesReceived > 0) {
-					if (MessageReceived != NULL) {
+				if(BytesReceived > 0) 
+				{
+					if (MessageReceived != NULL) 
+					{
 						MessageReceived(this, client, std::string(buff, 0, BytesReceived));
 						//PrintMessage(buff);
 					}
@@ -59,6 +63,7 @@ void serverTCP::Run()
 			std::cout << "Client was disconnected !! " << std::endl;
 			closesocket(client);
 		}
+		std::cout << "ta coooo" << std::endl;
 	}
 
 }
@@ -101,8 +106,7 @@ void serverTCP::PrintMessage(std::string data) {
 //wait for connection
 SOCKET serverTCP::WaitForConnection(SOCKET listening) {
 	SOCKET client = accept(listening, NULL, NULL);
-	std::string msg = "serus ja som server";
-	Send(client, msg);
+	
 	return client;
 }
 
