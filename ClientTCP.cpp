@@ -10,14 +10,16 @@ ClientTCP::ClientTCP(std::string ipAddress, int port, MessageReceivedHandler_C h
 }
 bool ClientTCP::Init() {
 	//server_name = gethostbyname("Klient");
-//	server_name->h_length;
+	//	server_name->h_length;
 	WSAData data;
 	WORD ver = MAKEWORD(2, 2);
 	int wsResult = WSAStartup(ver, &data);
 	if (wsResult != 0) {
+		
 		std::cerr << "cant start winsock, error #"<<wsResult << std::endl;
 		return false;
 	}
+	
 	return wsResult == 0;
 }
 
@@ -41,26 +43,27 @@ void ClientTCP::ConnectToServer() {
 	if (socket == INVALID_SOCKET) {
 		std::cerr << "hzmane" << std::endl;
 	}
-		sockaddr_in hint;
-		hint.sin_family = AF_INET;
-		hint.sin_port = htons(m_port);
-		inet_pton(AF_INET, m_ipAddress.c_str(), &hint.sin_addr);
-
+	//cout << "hymane" << endl;
+	sockaddr_in hint;
+	hint.sin_family = AF_INET;
+	hint.sin_port = htons(m_port);
+	std::cerr << "hzmane" << std::endl;
+	inet_pton(AF_INET, m_ipAddress.c_str(), &hint.sin_addr);
+	std::cerr << "hzmane" << std::endl;
 	int connResult = connect(socket, (sockaddr*)&hint, sizeof(hint));
-	cout << "hymane" << endl;
+	cout << "hymaneee" << endl;
 	if (connResult == SOCKET_ERROR) {
 		std::cerr << " cant connect to server, err #" << WSAGetLastError() << std::endl;
 		closesocket(socket);
 		WSACleanup();
 		return ;
 	}
-	cout << "hymansdasdae" << endl;
 	char buff[MAX_BUFFER_SIZE];
-	std::string userInput = "m";
+	std::string userInput = "masdasdadas";
 	cout << "rontoto" << endl;
 	do {
 		cout << "> :";
-		cin >> userInput;
+		getline(cin, userInput);
 
 		if(userInput.size() > 0){
 		int sendResult = send(socket, userInput.c_str(), userInput.size() + 1, 0);
