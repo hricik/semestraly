@@ -48,5 +48,5 @@ void Listener_MessageReceived_Server(serverTCP* listener, int client, string msg
 }
 
 void Listener_MessageReceived_Client(ClientTCP* sender, int server, string msg) {
-	//sender->Send(server, msg);
+	sender->Send(server, msg);
 }
