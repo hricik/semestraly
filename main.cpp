@@ -20,7 +20,7 @@ void main()
 	cin >> n;
 	if (n == 1) {
 		cout << "server is starting!" << endl;
-		serverTCP server("127.0.0.1", 54000, Listener_MessageReceived_Server);
+		serverTCP server("192.168.31.160", 54000, Listener_MessageReceived_Server);
 
 		if (server.Init())
 		{
@@ -29,7 +29,7 @@ void main()
 	}
 	if (n == 2) {
 		cout << "na tom este musime popracovat !" << endl;
-		ClientTCP client("192.168.31.160", 54000, Listener_MessageReceived_Client);
+		ClientTCP client("192.168.31.164", 54000, Listener_MessageReceived_Client);
 		if (client.Init()) {
 			client.ConnectToServer();
 		}
