@@ -34,6 +34,7 @@ void main()
 	cout << "2 - Client" << endl;
 	cout << "3 - Navody" << endl;
 	cout << "4 - pravidla hry" << endl;
+	cout << "#######################################################################" << endl;
 	
 
 	int n=0;
