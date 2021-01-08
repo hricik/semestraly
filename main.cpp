@@ -3,6 +3,7 @@
 #include <string>
 #include "serverTCP.h"
 #include "ClientTCP.h"
+#pragma warning(disable : 4996
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -19,6 +20,12 @@ using namespace std;
 
 //void Listener_MessageReceived_Client(ClientTCP* sender, int server, string msg);
 
+string nastavIP() {
+	string ip;
+	cin >> ip;
+	return "127.0.0.1";
+}
+
 void main()
 {	
 	cout<< "Vitaj v hre lodicky! Pre vyber z moznosti napis cislo!" << endl;
@@ -29,11 +36,12 @@ void main()
 	cout << "4 - pravidla hry" << endl;
 	
 
-	int n;
+	int n=0;
 	cin >> n;
 	switch(n)
 	{
 	case 1:
+	{
 		cout << "Zacina sa hra! Vytvaram server!" << endl;
 
 		//inicializacia winsocketu;
@@ -143,10 +151,12 @@ void main()
 		WSACleanup(); 
 
 		break;
+		}
 	case 2:
+	{
 		cout << "Zacina sa hra! Chystam sa pripojit na server!" << endl;
 		
-		string ipaddress = "127.0.0.1";
+		string ipaddresa = nastavIP();
 		int port_C = 54000;
 
 
@@ -168,7 +178,7 @@ void main()
 
 		//Vyplnenie štruktúry nápovedy, aby  winsocku vedel ku ktoremu portu sa ma pripojit
 		sockaddr_in hint = { AF_INET,htons(port_C) };
-		inet_pton(AF_INET, ipaddress.c_str(), &hint.sin_addr);
+		inet_pton(AF_INET, ipaddresa.c_str(), &hint.sin_addr);
 		
 		//PRIPOJENIE K serveru
 		int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
@@ -220,6 +230,7 @@ void main()
 		
 		
 		break;
+	}
 	case 3:
 		cout << "TU BUDE NAVOD HRY" << endl;
 		
@@ -233,22 +244,22 @@ void main()
 	}
 	
 
-	
+	/*
 	
 	if (n == 1) {
-		/*		cout << "server is starting!" << endl;
+			cout << "server is starting!" << endl;
 		serverTCP server("192.168.31.164", 54000, Listener_MessageReceived_Server);
 
 		if (server.Init())
 		{
 			server.Run();
 		}
-		*/
+		
 
 
 
 	}
-	if (n == 2) {/*
+	if (n == 2) {
 		cout << "na tom este musime popracovat !" << endl;
 		ClientTCP client("192.168.31.160", 54000, Listener_MessageReceived_Client);
 		if (client.Init()) {
@@ -258,12 +269,12 @@ void main()
 		*/
 
 
-	}
-
+}
 
 	
+	
 
-}
+
 
 /*void Listener_MessageReceived_Server(serverTCP* listener, int client, string msg) 
 {
