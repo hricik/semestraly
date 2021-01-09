@@ -1,11 +1,12 @@
 #include "ClientTCP.h"
-
+#include <fstream>
+#include <iostream>
 
 using namespace std;
 ClientTCP::ClientTCP(std::string ipAddress, int port, MessageReceivedHandler_C handler)
 	:m_ipAddress(ipAddress), m_port(port), MessageReceived(handler)
 {
-	
+
 
 }
 bool ClientTCP::Init() {
@@ -15,11 +16,11 @@ bool ClientTCP::Init() {
 	WORD ver = MAKEWORD(2, 2);
 	int wsResult = WSAStartup(ver, &data);
 	if (wsResult != 0) {
-		
-		std::cerr << "cant start winsock, error #"<<wsResult << std::endl;
+
+		std::cerr << "cant start winsock, error #" << wsResult << std::endl;
 		return false;
 	}
-	
+
 	return wsResult == 0;
 }
 
@@ -34,7 +35,7 @@ SOCKET ClientTCP::CreateSocket() {
 		WSACleanup();
 		return NULL;
 	}
-	
+
 	return sock;
 }
 
@@ -56,7 +57,7 @@ void ClientTCP::ConnectToServer() {
 		std::cerr << " cant connect to server, err #" << WSAGetLastError() << std::endl;
 		closesocket(socket);
 		WSACleanup();
-		return ;
+		return;
 	}
 	char buff[MAX_BUFFER_SIZE];
 	std::string userInput = "masdasdadas";
@@ -65,19 +66,19 @@ void ClientTCP::ConnectToServer() {
 		cout << "> :";
 		getline(cin, userInput);
 
-		if(userInput.size() > 0){
-		int sendResult = send(socket, userInput.c_str(), userInput.size() + 1, 0);
-		if (sendResult != SOCKET_ERROR) {
-			ZeroMemory(buff, MAX_BUFFER_SIZE);
-			int byteReceiver = recv(socket,buff,MAX_BUFFER_SIZE,0);
-			if (byteReceiver > 0) {
-				if(MessageReceived != NULL) {
-				MessageReceived(this, socket, string(buff, 0, byteReceiver));
-				cout << "### SERVER ODPOVEDA ### >> " << string(buff, 0, byteReceiver) << endl;
-			}
-			}
+		if (userInput.size() > 0) {
+			int sendResult = send(socket, userInput.c_str(), userInput.size() + 1, 0);
+			if (sendResult != SOCKET_ERROR) {
+				ZeroMemory(buff, MAX_BUFFER_SIZE);
+				int byteReceiver = recv(socket, buff, MAX_BUFFER_SIZE, 0);
+				if (byteReceiver > 0) {
+					if (MessageReceived != NULL) {
+						MessageReceived(this, socket, string(buff, 0, byteReceiver));
+						cout << "### SERVER ODPOVEDA ### >> " << string(buff, 0, byteReceiver) << endl;
+					}
+				}
 
-		}
+			}
 		}
 	} while (userInput.size() > 0);
 	//cout << "server neodpovedal nic. odpajam" << endl;
@@ -94,3 +95,4 @@ void ClientTCP::Send(int serverSocket, string msg) {
 void ClientTCP::PrintMessage(char* data) {
 	std::cout << data << std::endl;
 }
+
