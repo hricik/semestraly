@@ -3,6 +3,7 @@
 #include <string>
 #include "serverTCP.h"
 #include "ClientTCP.h"
+#include <fstream>
 #pragma warning(disable : 4996
 
 #pragma comment (lib, "ws2_32.lib")
@@ -27,19 +28,19 @@ string nastavIP() {
 }
 
 void main()
-{	
-	cout<< "Vitaj v hre lodicky! Pre vyber z moznosti napis cislo!" << endl;
+{
+	cout << "Vitaj v hre lodicky! Pre vyber z moznosti napis cislo!" << endl;
 	cout << "#######################################################################" << endl;
 	cout << "1 - Server" << endl;
 	cout << "2 - Client" << endl;
 	cout << "3 - Navody" << endl;
 	cout << "4 - pravidla hry" << endl;
 	cout << "#######################################################################" << endl;
-	
 
-	int n=0;
+
+	int n = 0;
 	cin >> n;
-	switch(n)
+	switch (n)
 	{
 	case 1:
 	{
@@ -65,7 +66,7 @@ void main()
 		//bindovanie IP adresy a portu k socketu!
 
 		sockaddr_in hint;
-		hint.sin_family = AF_INET;	
+		hint.sin_family = AF_INET;
 		hint.sin_port = htons(54000); //  NASTAVENIE PORTU
 		hint.sin_addr.S_un.S_addr = INADDR_ANY;
 
@@ -87,14 +88,14 @@ void main()
 		ZeroMemory(port, sizeof(port));
 
 		if (getnameinfo((sockaddr*)&client, sizeof(client), host_name, sizeof(host_name), port, sizeof(port), 0)) {
-			cout << "Klient je pripojeny na porte : "<< port << endl;
+			cout << "Klient je pripojeny na porte : " << port << endl;
 
 		}
-		else 
+		else
 		{
 			inet_ntop(AF_INET, &client.sin_addr, host_name, NI_MAXHOST);
 			cout << host_name << " connected on port" <<
-			htons(client.sin_port) << endl;
+				htons(client.sin_port) << endl;
 		}
 		//zatvorit listening socket
 		closesocket(listening);
@@ -125,7 +126,7 @@ void main()
 			string odpov; ///////
 
 			std::cout << "skuska" << std::endl;
-			
+
 
 			Paket packet;
 			char response_ptr[sizeof(odpov) + 1];
@@ -134,7 +135,7 @@ void main()
 			packet.dlzka = odpov.length();
 
 
-		
+
 			//std::cin >> packet.x >> packet.y;
 
 			char* tmp = reinterpret_cast<char*>(&packet);
@@ -149,14 +150,14 @@ void main()
 		//zatvorenie socketu;
 		closesocket(clientSocket);
 		//precistenie winsocketu
-		WSACleanup(); 
+		WSACleanup();
 
 		break;
-		}
+	}
 	case 2:
 	{
 		cout << "Zacina sa hra! Chystam sa pripojit na server!" << endl;
-		
+
 		string ipaddresa = nastavIP();
 		int port_C = 54000;
 
@@ -168,7 +169,7 @@ void main()
 		if (wsResult != 0) {
 			std::cout << "Cannot start wisock. Erro #" << wsResult << std::endl;
 		}
-		
+
 		//Vytvorenie socketu;
 		SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 		if (sock == INVALID_SOCKET) {
@@ -180,7 +181,7 @@ void main()
 		//Vyplnenie štruktúry nápovedy, aby  winsocku vedel ku ktoremu portu sa ma pripojit
 		sockaddr_in hint = { AF_INET,htons(port_C) };
 		inet_pton(AF_INET, ipaddresa.c_str(), &hint.sin_addr);
-		
+
 		//PRIPOJENIE K serveru
 		int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
 		if (connResult == SOCKET_ERROR) {
@@ -189,7 +190,7 @@ void main()
 			WSACleanup();
 			return;
 		}
-		
+
 		//4.POSIELANIE A DOSTAVANIE INFORMACII
 		char buffer[sizeof(Paket)];
 		Paket msg;
@@ -214,7 +215,7 @@ void main()
 					int bytesReceived = recv(sock, buffer, sizeof(Paket), 0);
 					Paket* vysledok = reinterpret_cast<Paket*>(buffer);
 					if (bytesReceived > 0) {
-						
+
 						cout << "Result on Player board: " << endl;
 
 					}
@@ -226,27 +227,27 @@ void main()
 		//Odpojenie a precistenie winsocketu
 		closesocket(sock);
 		WSACleanup();
-		
-		
-		
-		
+
+
+
+
 		break;
 	}
 	case 3:
 		cout << "TU BUDE NAVOD HRY" << endl;
-		
+
 	case 4:
 
 		cout << "TU BUDU PRAVIDLA HRY" << endl;
 
 	default:
-		
+
 		break;
 	}
-	
+
 
 	/*
-	
+
 	if (n == 1) {
 			cout << "server is starting!" << endl;
 		serverTCP server("192.168.31.164", 54000, Listener_MessageReceived_Server);
@@ -255,7 +256,7 @@ void main()
 		{
 			server.Run();
 		}
-		
+
 
 
 
@@ -264,7 +265,7 @@ void main()
 		cout << "na tom este musime popracovat !" << endl;
 		ClientTCP client("192.168.31.160", 54000, Listener_MessageReceived_Client);
 		if (client.Init()) {
-			
+
 			client.ConnectToServer();
 		}
 		*/
@@ -272,12 +273,12 @@ void main()
 
 }
 
-	
-	
 
 
 
-/*void Listener_MessageReceived_Server(serverTCP* listener, int client, string msg) 
+
+
+/*void Listener_MessageReceived_Server(serverTCP* listener, int client, string msg)
 {
 	listener->Send(client, msg);
 	listener->PrintMessage(msg);
@@ -287,4 +288,18 @@ void Listener_MessageReceived_Client(ClientTCP* sender, int server, string msg) 
 	sender->Send(server, msg);
 }
 */
-
+/*
+void zapisDoSuboru(string n1, string n2, string n3) {
+	ofstream myfile("výsledky.txt");
+	if (myfile.is_open())
+	{
+		myfile << "Vitajete v zápise výsledku hry BATTLE SHIPS\n";
+		myfile << "Výazom zápasu medzi hráèin "+n1+" a "+n2+" sa stáva hráè "+n3+".\n";
+		myfile << "Gratulujem k výazstvu "+n3+" .\n";
+		myfile.close();
+		myfile << "----------------------------------------------.\n";
+	}
+	else cout << "Nepodarilo sa otvori súbor na zápis výsledkou!";
+	
+}
+*/
