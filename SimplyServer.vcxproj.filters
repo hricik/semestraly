@@ -36,6 +36,12 @@
     <ClCompile Include="lietadlovaLod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Stvorec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HraciePole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientTCP.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lietadlovaLod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stvorec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HraciePole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

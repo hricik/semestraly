@@ -20,19 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientTCP.cpp" />
+    <ClCompile Include="HraciePole.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="lietadlovaLod.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pozicia.cpp" />
     <ClCompile Include="serverTCP.cpp" />
+    <ClCompile Include="Stvorec.cpp" />
     <ClCompile Include="Subjekt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientTCP.h" />
+    <ClInclude Include="HraciePole.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="lietadlovaLod.h" />
     <ClInclude Include="Pozicia.h" />
     <ClInclude Include="serverTCP.h" />
+    <ClInclude Include="Stvorec.h" />
     <ClInclude Include="Subjekt.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
