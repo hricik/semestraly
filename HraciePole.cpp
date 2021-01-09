@@ -24,7 +24,7 @@ void HraciePole::vytvorPrazdneHraciePole()
 	}
 }
 
-void premiesajSubjekty()
+void HraciePole::premiesajSubjekty()
 {
 	std::vector<Subjekt*> subjektVector = { new Ponorka(), new Ponorka(), new Ponorka(), new Ponorka(),
 		new Hydroplan(), new Hydroplan() ,new Hydroplan() , new Kriznik(), new Kriznik(),
@@ -52,6 +52,17 @@ void premiesajSubjekty()
 		}
 
 	}
+}
+
+bool HraciePole::overPodporuSubjektovOblasti(Subjekt *subjekt, int riadok, int stlpec) 
+{
+	if (subjekt->getVyska() + riadok <= 15 && subjekt->getSirka() + stlpec <= 15) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
 }
 
 void HraciePole::dajSubjektDoPola(Subjekt* subjekt) 
