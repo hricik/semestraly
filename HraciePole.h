@@ -3,6 +3,10 @@
 #include "stvorec.h"
 #include <random>
 #include "lietadlovaLod.h"
+#include "Ponorka.h"
+#include "Enterprise.h"
+#include "Kriznik.h"
+#include "Hydroplan.h" 
 
 class HraciePole
 {

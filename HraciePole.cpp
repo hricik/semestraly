@@ -26,10 +26,34 @@ void HraciePole::vytvorPrazdneHraciePole()
 
 void premiesajSubjekty()
 {
-	std::vector<Subjekt*> subjektVector = {
+	std::vector<Subjekt*> subjektVector = { new Ponorka(), new Ponorka(), new Ponorka(), new Ponorka(),
+		new Hydroplan(), new Hydroplan() ,new Hydroplan() , new Kriznik(), new Kriznik(),
+		new Kriznik(), new Enterprise(), new Enterprise(), new lietadlovaLod()
+	};
+
+	std::vector<Subjekt*> subjekty;
+
+	while (subjektVector.size() > 0) {
+		int radnomIndexVektoru = (rand() % subjektVector.size());
+		int radnomRiadok = (rand() % 15);
+		int radnomStlpec = (rand() % 15);
+
+		if (overPodporuSubjektovOblasti(subjektVector.at(radnomIndexVektoru), radnomRiadok, radnomStlpec) && !overOblastSubjektu(subjektVector.at(radnomIndexVektoru), radnomRiadok, randomStlpec)) {
+			Subjekt* subjekt = subjektVector.at(radnomIndexVektoru);
+			subjekt->getPozicia().nastavPolohuSuradnic(randomRiadok, randomStlpec);
+			subjekt->aktualizujPoziciuItemu();
+
+
+
+			subjekty.push_back(subjekt);
+			dajSubjektDoPola(subjekt);
+
+			subjektVector.erase(subjektVector.begin() + radnomIndexVektoru)
+		}
 
 	}
 }
+
 void HraciePole::dajSubjektDoPola(Subjekt* subjekt) 
 {
 	for (item* item : subjekt->DajItem()) {
@@ -100,15 +124,7 @@ bool HraciePole::dajHodnotuStvorca(int x, int y)
 }
 
 
-bool HraciePole::overPodporuSubjektovOblasti(Subjekt* subjekt, int riadok, int stlpec) 
-{
-	if (subjekt->getVyska() + riadok <= 15 && subjekt->getSirka() + stlpec <= 15) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
+
 
 bool HraciePole::overOblastSubjektu(Subjekt *subjekt, int riadok, int stlpec) 
 {
