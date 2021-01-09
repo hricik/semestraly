@@ -20,12 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientTCP.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pozicia.cpp" />
     <ClCompile Include="serverTCP.cpp" />
+    <ClCompile Include="Subjekt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientTCP.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="Pozicia.h" />
     <ClInclude Include="serverTCP.h" />
+    <ClInclude Include="Subjekt.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
