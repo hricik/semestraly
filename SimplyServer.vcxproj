@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="ClientTCP.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="lietadlovaLod.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pozicia.cpp" />
     <ClCompile Include="serverTCP.cpp" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <ClInclude Include="ClientTCP.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="lietadlovaLod.h" />
     <ClInclude Include="Pozicia.h" />
     <ClInclude Include="serverTCP.h" />
     <ClInclude Include="Subjekt.h" />
