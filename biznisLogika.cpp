@@ -18,17 +18,14 @@ std::string biznisLogika::nastavPolohuSuradnic(int riadok, int stlpec) {
 		{
 			odpoved = "Premrhal si tah :(";
 			ManazerPrikazov(PREHRA, nullptr);
-			
 		}
 		Odos_tahy++;
-
 	}
 	else
 	{
 		odpoved = "Mimo rozsah";
 	}
 	return odpoved;
-
 }
 void biznisLogika::print() {
 	for (int i = 0; i < h_pole.HracovStvorec.size(); i++) 
@@ -64,8 +61,6 @@ void biznisLogika::print() {
 void biznisLogika::navysPocetTahu() {
 	
 	podavac_odpovedi++;
-	cout << "                                                               HYMANE" << podavac_odpovedi << endl;
-
 	if (podavac_odpovedi == Pocet_Tahov) {
 		cout << "Si na rade !" << endl;
 		Odos_tahy = 0;
@@ -98,7 +93,7 @@ std::string biznisLogika::ManazerPrikazov(int cislo_prikazu, Stvorec* stvorec) {
 			}
 		}
 		else {
-			h_pole.nastavSymbolStvorca(stvorec->getRiadok(), stvorec->getStlpec(), '~');
+			h_pole.nastavSymbolStvorca(stvorec->getRiadok(), stvorec->getStlpec(), ' ');
 			odpoved = "trafil si do VODY";
 		}
 
