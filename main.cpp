@@ -297,6 +297,7 @@ void main()
 		break;
 	default:
 		vypisPravidla();
+		return;
 		break;
 	}
 
