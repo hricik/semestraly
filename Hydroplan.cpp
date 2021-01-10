@@ -19,12 +19,12 @@ Hydroplan::~Hydroplan()
 
 }
 
-std::string Hydroplan::getMeno() {
+std::string Hydroplan::DajMeno() {
 	return "Hydroplan";
 }
 void Hydroplan::inicializujItem() {
 
-	pieces = { new item(pozicia.getRiadok(), pozicia.getStlpec() + 1),
+	itemy = { new item(pozicia.getRiadok(), pozicia.getStlpec() + 1),
 		new item(pozicia.getRiadok() + 1, pozicia.getStlpec()),
 		new item(pozicia.getRiadok() + 1, pozicia.getStlpec() + 2) };
 

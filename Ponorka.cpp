@@ -18,15 +18,15 @@ Ponorka::~Ponorka()
 
 }
 
-std::string Ponorka::getMeno() {
+std::string Ponorka::DajMeno() {
 	return "Ponorka";
 }
 void Ponorka::inicializujItem() {
 
-	itemy = { new Item(pozicia.getRiadok(), pozicia.getStlpec()) };
+	itemy = { new item(pozicia.getRiadok(), pozicia.getStlpec()) };
 
 }
 
 void Ponorka::aktualizujPoziciuItemu() {
-	itemy[0]- nastavPolohuSuradnic(pozicia.getRiadok(), pozicia.getStlpec());
+	itemy[0]->nastavPolohuSuradnic(pozicia.getRiadok(), pozicia.getStlpec());
 }

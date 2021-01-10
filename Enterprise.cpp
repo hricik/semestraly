@@ -21,7 +21,7 @@ Enterprise::~Enterprise()
 }
 
 
-std::string Enterprise::getMeno() {
+std::string Enterprise::DajMeno() {
 	return "Enterprise";
 }
 void Enterprise::inicializujItem() {

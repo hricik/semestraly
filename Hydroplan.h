@@ -6,7 +6,7 @@ public:
 	Hydroplan();
 	Hydroplan(int, int);
 	~Hydroplan();
-	std::string getMeno()override;
+	std::string DajMeno()override;
 	void inicializujItem()override;
 	void aktualizujPoziciuItemu()override;
 

@@ -38,9 +38,9 @@ void HraciePole::premiesajSubjekty()
 		int radnomRiadok = (rand() % 15);
 		int radnomStlpec = (rand() % 15);
 
-		if (overPodporuSubjektovOblasti(subjektVector.at(radnomIndexVektoru), radnomRiadok, radnomStlpec) && !overOblastSubjektu(subjektVector.at(radnomIndexVektoru), radnomRiadok, randomStlpec)) {
+		if (overPodporuSubjektovOblasti(subjektVector.at(radnomIndexVektoru), radnomRiadok, radnomStlpec) && !overOblastSubjektu(subjektVector.at(radnomIndexVektoru), radnomRiadok, radnomStlpec)) {
 			Subjekt* subjekt = subjektVector.at(radnomIndexVektoru);
-			subjekt->getPozicia().nastavPolohuSuradnic(randomRiadok, randomStlpec);
+			subjekt->getPozicia().nastavPolohuSuradnic(radnomRiadok, radnomStlpec);
 			subjekt->aktualizujPoziciuItemu();
 
 
@@ -48,7 +48,7 @@ void HraciePole::premiesajSubjekty()
 			subjekty.push_back(subjekt);
 			dajSubjektDoPola(subjekt);
 
-			subjektVector.erase(subjektVector.begin() + radnomIndexVektoru)
+			subjektVector.erase(subjektVector.begin() + radnomIndexVektoru);
 		}
 
 	}

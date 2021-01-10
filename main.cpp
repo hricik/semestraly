@@ -2,7 +2,8 @@
 #include <WS2tcpip.h>
 #include <string>
 #include <fstream>
-#pragma warning(disable : 4996
+#pragma warning(disable : 4996)
+#include "biznisLogika.h"
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -99,9 +100,9 @@ void main()
 		closesocket(listening);
 		cout << "Server VYTVORENY !!!" << endl << "Cakam na hraca" << endl;
 
-		//
+		biznisLogika nepriat_h_pole;
 		char buffer[sizeof(Paket)];
-		//
+		nepriat_h_pole.print();
 		while (true)
 		{
 			ZeroMemory(buffer, sizeof(Paket));
@@ -121,9 +122,10 @@ void main()
 			}
 
 			Paket* msgrcv = reinterpret_cast<Paket*>(buffer);
-			string odpov; ///////
+			string odpov = nepriat_h_pole.nastavPolohuSuradnic(msgrcv->x, msgrcv->y);
 
-			std::cout << "skuska" << std::endl;
+			cout << "Hrac poslal tieto suradnice >: X :" << msgrcv->x << ", Y :" << msgrcv->y << endl;
+			std::cout << "vysledok na strane ______" << odpov <<endl;
 
 
 			Paket packet;
@@ -133,14 +135,16 @@ void main()
 			packet.dlzka = odpov.length();
 
 
-
-			//std::cin >> packet.x >> packet.y;
+			cout << endl;
+			cout << endl;
+			cout <<"Vloz suradnipe X (stlac enter) Y (stlac enter)"<< endl;
+			std::cin >> packet.x >> packet.y;
 
 			char* tmp = reinterpret_cast<char*>(&packet);
 			int sendResult = send(clientSocket, tmp, sizeof(packet) + 1, 0);
 			if (sendResult != SOCKET_ERROR)
 			{
-				std::cout << " /// " << std::endl;
+				std::cout << "Hracov tah >>>" << std::endl;
 
 			}
 		}
