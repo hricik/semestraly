@@ -11,8 +11,8 @@ std::string biznisLogika::nastavPolohuSuradnic(int riadok, int stlpec) {
 
 	string odpoved = "CHYBA #(nastavPolohuSuradnic)";
 	if (!(riadok > 15 || riadok < 0) && !(stlpec > 15 || stlpec < 0)) {
-		if (!h_pole.hracove_hracie_pole[riadok][stlpec]->jeVyplnene()) {
-			return ManazerPrikazov(XY_STVOREC, h_pole.hracove_hracie_pole[riadok][stlpec]);
+		if (!h_pole.HracovStvorec[riadok][stlpec]->jeVyplnene()) {
+			return ManazerPrikazov(XY_STVOREC, h_pole.HracovStvorec[riadok][stlpec]);
 		}
 		else
 		{
@@ -31,19 +31,21 @@ std::string biznisLogika::nastavPolohuSuradnic(int riadok, int stlpec) {
 
 }
 void biznisLogika::print() {
-	for (int i = 0; i < h_pole.hracove_hracie_pole.size(); i++) {
+	for (int i = 0; i < h_pole.HracovStvorec.size(); i++) 
+	{
 		std::cout << "---";
 	}
 	std::cout << " " << std::endl;
-	for (int i = 0; i < h_pole.hracove_hracie_pole.size(); i++)
+
+	for (int i = 0; i < h_pole.HracovStvorec.size(); i++)
 	{
-		for (int j = 0; j < h_pole.hracove_hracie_pole[i].size(); j++)
+		for (int j = 0; j < h_pole.HracovStvorec[i].size(); j++)
 		{
-			std::cout << "| " << h_pole.hracove_hracie_pole[i][j]->getSymbolStvorca();
+			std::cout << "| " << h_pole.HracovStvorec[i][j]->getSymbolStvorca();
 		}
 		std::cout << "| " << i + 1 << std::endl;
 	}
-	for (int i = 0; i < h_pole.hracove_hracie_pole.size(); i++) {
+	for (int i = 0; i < h_pole.HracovStvorec.size(); i++) {
 		std::cout << "---";
 	}
 	std::cout << " ";
@@ -52,7 +54,7 @@ void biznisLogika::print() {
 		std::cout << " " << i + 1 << " ";
 	}
 
-	for (int i = 10; i < h_pole.hracove_hracie_pole.size(); i++) {
+	for (int i = 10; i < h_pole.HracovStvorec.size(); i++) {
 		std::cout << " " << i + 1;
 	}
 

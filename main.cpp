@@ -4,6 +4,7 @@
 #include <fstream>
 #pragma warning(disable : 4996)
 #include "biznisLogika.h"
+#include "HraciePole.h"
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -29,6 +30,11 @@ string nastavIP() {
 
 void main()
 {
+	//HraciePole hra;
+	//hra.vytvorPrazdneHraciePole();
+	biznisLogika pole;
+	pole.print();
+
 	cout << "Vitaj v hre lodicky! Pre vyber z moznosti napis cislo!" << endl;
 	cout << "#######################################################################" << endl;
 	cout << "1 - Server" << endl;

@@ -13,25 +13,25 @@ class HraciePole
 public:
 	HraciePole();
 	void vytvorPrazdneHraciePole();
+	void premiesajSubjekty();
 	void dajSubjektDoPola(Subjekt*);
 	void resetujHraciePole();
-	void premiesajSubjekty();
 	void nastavHodnotuStvorca(int, int, bool);
 	void nastavSymbolStvorca(int, int, char);
 	void nastavStatusItemuSubjektu(int, int, bool);
 	void potopitItem(int, int, bool);
 	bool overPotopeneItemy();
-	bool dajHodnotuStvorca(int ,int);
-	bool overPodporuSubjektovOblasti(Subjekt*, int ,int);
+	bool dajHodnotuStvorca(int, int);
+	bool overPodporuSubjektuVOblasti(Subjekt*, int, int);
 	bool overOblastSubjektu(Subjekt*, int, int);
 	bool overZnicenieSubjektu(Subjekt*);
-	Subjekt* dajSubjekt(int riadok, int stlpec);
+	Subjekt* dajSubjekt(int row, int column);
 
-	std::vector<std::vector<Stvorec*>> hracove_hracie_pole;
+	std::vector<std::vector<Stvorec*>> HracovStvorec;
 	~HraciePole();
 
 private:
-	std::vector<Subjekt*> subjekty;
+	std::vector<Subjekt*> Subjekty;
 	std::vector<std::vector<bool>> oblast;
 
 };
