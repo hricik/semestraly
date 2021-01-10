@@ -32,7 +32,7 @@ std::string biznisLogika::nastavPolohuSuradnic(int riadok, int stlpec) {
 }
 void biznisLogika::print() {
 	for (int i = 0; i < h_pole.hracove_hracie_pole.size(); i++) {
-		std::cout << "^^^";
+		std::cout << "---";
 	}
 	std::cout << " " << std::endl;
 	for (int i = 0; i < h_pole.hracove_hracie_pole.size(); i++)

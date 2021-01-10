@@ -22,8 +22,9 @@ using namespace std;
 
 string nastavIP() {
 	string ip;
+	cout << "Zadaj IP ADRESU SERVERA !";
 	cin >> ip;
-	return "127.0.0.1";
+	return ip;
 }
 
 void main()
@@ -101,8 +102,10 @@ void main()
 		cout << "Server VYTVORENY !!!" << endl << "Cakam na hraca" << endl;
 
 		biznisLogika nepriat_h_pole;
-		char buffer[sizeof(Paket)];
+		char buffer[sizeof(Paket)]
+			;
 		nepriat_h_pole.print();
+
 		while (true)
 		{
 			ZeroMemory(buffer, sizeof(Paket));
@@ -160,9 +163,10 @@ void main()
 	{
 		cout << "Zacina sa hra! Chystam sa pripojit na server!" << endl;
 
-		string ipaddresa = nastavIP();
+		//string ipaddresa = nastavIP();
+		string ipaddresa = "192.168.31.160";
 		int port_C = 54000;
-
+		cout << "halo";
 
 		//inicializacia winsocketu;
 		WSAData data;
@@ -196,15 +200,19 @@ void main()
 		//4.POSIELANIE A DOSTAVANIE INFORMACII
 		char buffer[sizeof(Paket)];
 		Paket msg;
-		//
-		//
+		biznisLogika nepriatel;
+
+		nepriatel.print();
+		
 
 
 		do {
-			// 
+
+
+			cout<< "Vloz suradnipe X (stlac enter) Y (stlac enter) "<< endl;
 			cin >> msg.x >> msg.y;
 
-			if (msg.x > 0 && msg.y > 0) {
+			if ((msg.x > 0 && msg.y > 0) && (msg.x < 16 && msg.y <16)){
 				//Poslanie packetu s informaciami
 
 				char* tmp = reinterpret_cast<char*>(&msg);
@@ -218,14 +226,16 @@ void main()
 					Paket* vysledok = reinterpret_cast<Paket*>(buffer);
 					if (bytesReceived > 0) {
 
+						cout << "Hrac poslal tieto suradnice >: X :" << vysledok->x << ", Y : " << vysledok->y << endl;
 						cout << "Result on Player board: " << endl;
+						cout << "vysledok na strane hraca je : " << nepriatel.nastavPolohuSuradnic(vysledok->x, vysledok->y) << endl;
 
 					}
 				}
 
 			}
 		} while (msg.x > 0 && msg.y > 0);
-
+		cout << "zadal si 0 0 " << endl;
 		//Odpojenie a precistenie winsocketu
 		closesocket(sock);
 		WSACleanup();
