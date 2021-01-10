@@ -1,6 +1,6 @@
 #pragma once
-#include "Stvorec.h"
-#include "HraciePole.h"
+#include "item.h"
+
 
 class biznisLogika
 {
