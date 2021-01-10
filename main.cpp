@@ -262,11 +262,9 @@ void main()
 		cout << "              " << endl;
 		cout << "Pred zaciatkom hry je dolezite aby si kazdy hrac zvoli ci chce vystupova ako klient alebo ako server!" << endl;
 		cout << "                    Obaja hraci nikdy nemozu vystupovat pod rovnakym vyberom!" << endl;
-		cout << "              " << endl;
-		cout << "Na zaciatku kazdej hry si hraci najskor zvolia rozmiestnenie svojich bojovich lodi " << endl;
-		cout << "Nezabudnite si rozmiestnenie lodi poriadne premysliet.V rozmiestneni je kluc k uspechu!" << endl;
-		cout << "Po rozmiesneni lodi nastava start hry.Hraci postupne klikaju na vykreslenu plochu a snazia " << endl;
-		cout << "sa lokalizovat lode svojho supera.VITAZOM sa stava hrac ktori ako prvi najde vsetky lode  " << endl;
+		cout << "Na zaciatku kazdej hry si program najskor zvoli rozmiestnenie svojich bojovich lodi " << endl;
+		cout << "Po rozmiesneni lodi nastava start hry.Hraci postupne zadavaju suradnice a snazia sa najst lode svojho supera " << endl;
+		cout << "V takomto hladani sa hraci striedaju az do konca zapasu. VITAZOM sa stava hrac ktori ako prvi najde vsetky lode  " << endl;
 		cout << "svojho nepriatela,v tomto momente sa hra konci.Vela stastia vo vasich strategickich bitkach! " << endl;
 
 
