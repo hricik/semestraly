@@ -1,10 +1,12 @@
-#include <iostream>
+
 #include <WS2tcpip.h>
 #include <string>
 #include <fstream>
 #pragma warning(disable : 4996)
 #include "biznisLogika.h"
 #include "HraciePole.h"
+#include <Windows.h>
+#include <thread>
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -28,8 +30,16 @@ string nastavIP() {
 	return ip;
 }
 
+
+void SpustiHruServer() {
+
+
+}
+
+
 void main()
 {
+	
 	//HraciePole hra;
 	//hra.vytvorPrazdneHraciePole();
 	biznisLogika pole;
@@ -130,8 +140,10 @@ void main()
 			}
 
 			Paket* msgrcv = reinterpret_cast<Paket*>(buffer);
-			string odpov = nepriat_h_pole.nastavPolohuSuradnic(msgrcv->x, msgrcv->y);
 
+			cout << endl;
+			string odpov = nepriat_h_pole.nastavPolohuSuradnic(msgrcv->x, msgrcv->y);
+			cout << endl;
 			cout << "Hrac poslal tieto suradnice >: X :" << msgrcv->x << ", Y :" << msgrcv->y << endl;
 			std::cout << "vysledok hraca, ktory poslal suradnice je : " << odpov <<endl;
 
@@ -149,6 +161,7 @@ void main()
 			std::cin >> packet.x >> packet.y;
 
 			char* tmp = reinterpret_cast<char*>(&packet); // problem? 
+
 			cout << "tu sa vytvara packet pre klienta v pakete je " << packet.x << " "<<packet.y << endl;
 			int sendResult = send(clientSocket, tmp, sizeof(packet) + 1, 0);
 			if (sendResult != SOCKET_ERROR)
@@ -212,18 +225,21 @@ void main()
 		nepriatel.print();
 		
 
-
+		int l = 0;
+		int p = 0;
+		int pocetPrijatychSprav = 0;
 		do {
-			
 
 			cout<< "Vloz suradnipe X (stlac enter) Y (stlac enter) "<< endl;
 			cin >> msg.x;
 			cin	>> msg.y;
-			cout << "poslal si X "<<msg.x<< "Y " << msg.y << endl;
+			cout << "poslal si X "<<msg.x<< " Y " << msg.y << endl;
 			if ((msg.x >= 0 && msg.y >= 0) && (msg.x < 16 && msg.y <16)){
 				//Poslanie packetu s informaciami
 
 				char* tmp = reinterpret_cast<char*>(&msg); // problem? 
+
+				cout << "toto je tmp" << tmp << endl;
 				int sendResult = send(sock, tmp, sizeof(Paket) + 1, 0);
 
 				if (sendResult != SOCKET_ERROR)
@@ -231,13 +247,16 @@ void main()
 					//Cakanie na odpoved;
 					ZeroMemory(buffer, sizeof(Paket));
 					int bytesReceived = recv(sock, buffer, sizeof(Paket), 0);
+					pocetPrijatychSprav++;
+
+					cout << "toto je bufferi '" << buffer << "'" << endl;
 					Paket* vysledok = reinterpret_cast<Paket*>(buffer);
 					if (bytesReceived > 0) {
-
+						p++;
 						cout << "Hrac poslal tieto suradnice >: X : " << vysledok->x << ", Y : " << vysledok->y << endl;
 						//cout << "Result on Player board: " << endl;
 						cout << "od hraca ktory ti poslal udaje sa stal tento vysledok : " << nepriatel.nastavPolohuSuradnic(vysledok->x, vysledok->y) << endl;
-
+						cout << " som tu uz " << p << endl;
 					}
 				}
 
@@ -245,7 +264,9 @@ void main()
 			else {
 				cout << "packet values is x" << msg.x << " y " << msg.y << " dlzka" << msg.dlzka << endl;
 			}
-		} while (msg.x > 0 && msg.y > 0);
+			l++;
+			cout <<" l = "<< l << endl;
+ 		} while (msg.x > 0 && msg.y > 0);
 		cout << "zadal si 0 0 " << endl;
 		//Odpojenie a precistenie winsocketu
 		closesocket(sock);

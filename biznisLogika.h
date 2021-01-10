@@ -20,9 +20,9 @@ private:
 	HraciePole h_pole;
 	std:: string ManazerPrikazov(int, Stvorec*);
 	int Odos_tahy;
-	int podavac_odpovedi;
+	int podavac_odpovedi = 0;
 	int Pocet_Tahov;
-	int Pocet_Odpovedi;
+	int Pocet_Odpovedi = 0;
 
 	int const START = 10;
 	int const ODPOVED_XY = 30;
