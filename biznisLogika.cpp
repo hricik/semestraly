@@ -94,6 +94,7 @@ std::string biznisLogika::ManazerPrikazov(int cislo_prikazu, Stvorec* stvorec) {
 		}
 		else {
 			h_pole.nastavSymbolStvorca(stvorec->getRiadok(), stvorec->getStlpec(), '~');
+			odpoved = "trafil si do VODY";
 		}
 
 	}

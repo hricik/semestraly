@@ -232,7 +232,7 @@ void main()
 					Paket* vysledok = reinterpret_cast<Paket*>(buffer);
 					if (bytesReceived > 0) {
 
-						cout << "Hrac poslal tieto suradnice >: X :" << vysledok->x << ", Y : " << vysledok->y << endl;
+						cout << "Hrac poslal tieto suradnice >: X : " << vysledok->x << ", Y : " << vysledok->y << endl;
 						cout << "Result on Player board: " << endl;
 						cout << "vysledok na strane hraca je : " << nepriatel.nastavPolohuSuradnic(vysledok->x, vysledok->y) << endl;
 
