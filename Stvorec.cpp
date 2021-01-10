@@ -4,7 +4,7 @@ Stvorec::Stvorec(int riadok, int stlpec, char symbol, bool vyplnene, bool zobraz
 {
 	this->riadok = riadok;
 	this->stlpec = stlpec;
-	this->symbol = stlpec;
+	this->symbol = symbol;
 	this->vyplnene = vyplnene;
 	this->zobraz = zobrazene;
 }

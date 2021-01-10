@@ -18,14 +18,14 @@ Kriznik::~Kriznik()
 {
 }
 
-std::string Kriznik::getMeno()
+std::string Kriznik::DajMeno()
 {
 	return "Kriznik";
 }
 
 void Kriznik::inicializujItem()
 {
-	pieces = { new Piece(position.getRow(), position.getColumn()),
+	itemy = { new item(pozicia.getRiadok(), pozicia.getStlpec()),
 		new item(pozicia.getRiadok(), pozicia.getStlpec() + 1),
 		new item(pozicia.getRiadok(), pozicia.getStlpec() + 2),
 		new item(pozicia.getRiadok(), pozicia.getStlpec() + 3) };

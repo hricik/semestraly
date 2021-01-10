@@ -4,25 +4,33 @@
 HraciePole::HraciePole() 
 {
 	for (int x = 0; x < 15; x++) {
-		std::vector<bool> temp;
-		for (int y = 0; y < 15; y++) {
+		std::vector <bool> temp;
+		for (int y = 0; y < 15; y++)
+		{
 			temp.push_back(false);
 		}
 		oblast.push_back(temp);
 	}
+
 	vytvorPrazdneHraciePole();
 	premiesajSubjekty();
 }
+
+
+
 void HraciePole::vytvorPrazdneHraciePole() 
 {
 	for (int x = 0; x < 15; x++) {
-		std::vector<Stvorec*> temp;
-		for (int y = 0; y < 15; y++) {
-			temp.push_back(new Stvorec(x,y,'#',false,true));
+		std::vector <Stvorec*> temp;
+		for (int y = 0; y < 15; y++)
+		{
+			temp.push_back(new Stvorec(x, y, '#', false, true));
 		}
-		hracove_hracie_pole.push_back(temp);
+		HracovStvorec.push_back(temp);
 	}
 }
+
+
 
 void HraciePole::premiesajSubjekty()
 {
@@ -31,30 +39,32 @@ void HraciePole::premiesajSubjekty()
 		new Kriznik(), new Enterprise(), new Enterprise(), new lietadlovaLod()
 	};
 
-	std::vector<Subjekt*> subjekty;
+	//std::vector<Subjekt*> subjekty;
 
 	while (subjektVector.size() > 0) {
 		int radnomIndexVektoru = (rand() % subjektVector.size());
 		int radnomRiadok = (rand() % 15);
 		int radnomStlpec = (rand() % 15);
 
-		if (overPodporuSubjektovOblasti(subjektVector.at(radnomIndexVektoru), radnomRiadok, radnomStlpec) && !overOblastSubjektu(subjektVector.at(radnomIndexVektoru), radnomRiadok, randomStlpec)) {
+		if (overPodporuSubjektuVOblasti(subjektVector.at(radnomIndexVektoru), radnomRiadok, radnomStlpec) && !overOblastSubjektu(subjektVector.at(radnomIndexVektoru), radnomRiadok, radnomStlpec)) {
 			Subjekt* subjekt = subjektVector.at(radnomIndexVektoru);
-			subjekt->getPozicia().nastavPolohuSuradnic(randomRiadok, randomStlpec);
+			subjekt->getPozicia().nastavPolohuSuradnic(radnomRiadok, radnomStlpec);
 			subjekt->aktualizujPoziciuItemu();
 
 
 
-			subjekty.push_back(subjekt);
+			Subjekty.push_back(subjekt);
 			dajSubjektDoPola(subjekt);
 
-			subjektVector.erase(subjektVector.begin() + radnomIndexVektoru)
+			subjektVector.erase(subjektVector.begin() + radnomIndexVektoru);
 		}
 
 	}
 }
 
-bool HraciePole::overPodporuSubjektovOblasti(Subjekt *subjekt, int riadok, int stlpec) 
+
+
+bool HraciePole::overPodporuSubjektuVOblasti(Subjekt *subjekt, int riadok, int stlpec)
 {
 	if (subjekt->getVyska() + riadok <= 15 && subjekt->getSirka() + stlpec <= 15) {
 		return true;
@@ -65,6 +75,8 @@ bool HraciePole::overPodporuSubjektovOblasti(Subjekt *subjekt, int riadok, int s
 
 }
 
+
+
 void HraciePole::dajSubjektDoPola(Subjekt* subjekt) 
 {
 	for (item* item : subjekt->DajItem()) {
@@ -72,6 +84,8 @@ void HraciePole::dajSubjektDoPola(Subjekt* subjekt)
 	}
 
 }
+
+
 void HraciePole::resetujHraciePole() 
 {
 	for (int riadok = 0; riadok < oblast.size(); riadok++) {
@@ -80,23 +94,29 @@ void HraciePole::resetujHraciePole()
 		}
 	}
 }
+
+
 void HraciePole::nastavHodnotuStvorca(int riadok, int stlpec, bool hodnota) 
 {
 	if (riadok <= oblast.size() && stlpec <= oblast.size()) {
 		oblast[riadok][stlpec] = hodnota;
 	}
 }
+
+
 void HraciePole::nastavSymbolStvorca(int riadok, int stlpec,char symbol) 
 {
 	if (riadok <= oblast.size() && stlpec <= oblast.size()) {
-		hracove_hracie_pole[riadok][stlpec]->NastavVypln(true);
-		hracove_hracie_pole[riadok][stlpec]->nastavSybmolStvorca(symbol);
+		HracovStvorec[riadok][stlpec]->NastavVypln(true);
+		HracovStvorec[riadok][stlpec]->nastavSybmolStvorca(symbol);
 	}
 }
 
+
+
 void HraciePole::nastavStatusItemuSubjektu(int riadok, int stlpec, bool hodnota)
 {
-	for (auto subjekt : subjekty) {
+	for (auto subjekt : Subjekty) {
 		for (auto item : subjekt->DajItem()) {
 			//Because position was initialized with (0,0).
 			if (item->dajPoziciu().getRiadok() == riadok && item->dajPoziciu().getStlpec() == stlpec) {
@@ -106,15 +126,19 @@ void HraciePole::nastavStatusItemuSubjektu(int riadok, int stlpec, bool hodnota)
 	}
 }
 
+
+
 void HraciePole::potopitItem(int riadok, int stlpec, bool hodnota) 
 {
 	nastavHodnotuStvorca(riadok, stlpec, hodnota);
 	nastavStatusItemuSubjektu(riadok, stlpec, hodnota);
 }
 
+
+
 bool HraciePole::overPotopeneItemy() 
 {
-	for (Subjekt *subjekt : subjekty) {
+	for (Subjekt *subjekt : Subjekty) {
 		for (item *item : subjekt->DajItem()) {
 			if (item->Status()) {
 				return true;
@@ -123,6 +147,8 @@ bool HraciePole::overPotopeneItemy()
 	}
 	return false;
 }
+
+
 
 bool HraciePole::dajHodnotuStvorca(int x, int y) 
 {
@@ -147,6 +173,8 @@ bool HraciePole::overOblastSubjektu(Subjekt *subjekt, int riadok, int stlpec)
 	return false;
 }
 
+
+
 bool HraciePole::overZnicenieSubjektu(Subjekt* subjekt) 
 {
 	for (item* item : subjekt->DajItem()) {
@@ -159,9 +187,10 @@ bool HraciePole::overZnicenieSubjektu(Subjekt* subjekt)
 }
 
 
+
 Subjekt* HraciePole::dajSubjekt(int riadok, int stlpec)
 {
-	for (auto subjekt : subjekty) {
+	for (auto subjekt : Subjekty) {
 		for (auto item : subjekt->DajItem()) {
 			if (item->dajPoziciu().getRiadok() == riadok && item->dajPoziciu().getStlpec() == stlpec) {
 				return subjekt;
@@ -170,6 +199,8 @@ Subjekt* HraciePole::dajSubjekt(int riadok, int stlpec)
 	}
 	return nullptr;
 }
+
+
 
 HraciePole::~HraciePole() 
 {

@@ -6,7 +6,7 @@ public:
 	Ponorka();
 	Ponorka(int, int);
 	~Ponorka();
-	std::string getMeno()override;
+	std::string DajMeno()override;
 	void inicializujItem()override;
 	void aktualizujPoziciuItemu()override;
 
