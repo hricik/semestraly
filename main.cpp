@@ -8,6 +8,8 @@
 #include <Windows.h>
 #include <thread>
 #pragma comment (lib, "ws2_32.lib")
+#include <ios>
+#include <limits>
 
 
 struct Paket {
@@ -17,6 +19,17 @@ struct Paket {
 
 using namespace std;
 
+/*int overCislo(int rozsah) { nestiham... 
+	int cislo;
+	bool inputJeDobry = true;
+	while (!(cin >> cislo))
+	{
+		cin.clear(); // clear failbit from character
+
+		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ignore bad input
+		cout << "U've entered not an integer!!" << endl;
+	}
+}*/
 
 void inicializujStartProgramu() {
 	cout << "Vitaj v hre lodicky! Pre vyber z moznosti napis cislo!" << endl;
@@ -24,7 +37,6 @@ void inicializujStartProgramu() {
 	cout << "1 - Server" << endl;
 	cout << "2 - Client" << endl;
 	cout << "3 - Navody" << endl;
-	cout << "4 - pravidla hry" << endl;
 	cout << "#######################################################################" << endl;
 }
 
@@ -35,6 +47,18 @@ string nastavIP() {
 	return ip;
 }
 
+void vypisPravidla() {
+	cout << "                           Pravidla hry su nasledujuce" << endl;
+	cout << "              " << endl;
+	cout << "Pred zaciatkom hry je dolezite aby si kazdy hrac zvoli ci chce vystupova ako klient alebo ako server!" << endl;
+	cout << "                    Obaja hraci nikdy nemozu vystupovat pod rovnakym vyberom!" << endl;
+	cout << "Na zaciatku kazdej hry si program najskor zvoli rozmiestnenie svojich bojovich lodi " << endl;
+	cout << "  (rozmiestnenie urcuje hra nahodne!) " << endl;
+	cout << "Po rozmiesneni lodi nastava start hry. Hraci postupne zadavaju suradnice a snazia sa najst lode svojho supera " << endl;
+	cout << "V takomto hladani sa hraci striedaju az do konca zapasu. VITAZOM sa stava hrac ktori ako prvi najde vsetky lode  " << endl;
+	cout << "svojho nepriatela,v tomto momente sa hra konci.Vela stastia vo vasich strategickich bitkach! " << endl;
+
+}
 
 void SpustiHruServer() {
 	cout << "Zacina sa hra! Vytvaram server!" << endl;
@@ -232,6 +256,8 @@ void SpustiHruKlient() {
 
 void main()
 {
+
+	
 	inicializujStartProgramu();
 
 	int n = 0;
@@ -251,26 +277,12 @@ void main()
 		break;
 	}
 	case 3:
-		cout << "TU BUDE NAVOD HRY" << endl;
+		vypisPravidla();
+		return;
+		break;
 	default:
-
+		vypisPravidla();
 		break;
 	}
 
 }
-
-/*
-void zapisDoSuboru(string n1, string n2, string n3) {
-	ofstream myfile("výsledky.txt");
-	if (myfile.is_open())
-	{
-		myfile << "Vitajete v zápise výsledku hry BATTLE SHIPS\n";
-		myfile << "Výazom zápasu medzi hráèin "+n1+" a "+n2+" sa stáva hráè "+n3+".\n";
-		myfile << "Gratulujem k výazstvu "+n3+" .\n";
-		myfile.close();
-		myfile << "----------------------------------------------.\n";
-	}
-	else cout << "Nepodarilo sa otvori súbor na zápis výsledkou!";
-	
-}
-*/
