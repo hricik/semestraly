@@ -108,8 +108,7 @@ void main()
 		cout << "Server VYTVORENY !!!" << endl << "Cakam na hraca" << endl;
 
 		biznisLogika nepriat_h_pole;
-		char buffer[sizeof(Paket)]
-			;
+		char buffer[sizeof(Paket)];
 		nepriat_h_pole.print();
 
 		while (true)
@@ -134,7 +133,7 @@ void main()
 			string odpov = nepriat_h_pole.nastavPolohuSuradnic(msgrcv->x, msgrcv->y);
 
 			cout << "Hrac poslal tieto suradnice >: X :" << msgrcv->x << ", Y :" << msgrcv->y << endl;
-			std::cout << "vysledok na strane ______" << odpov <<endl;
+			std::cout << "vysledok hraca, ktory poslal suradnice je : " << odpov <<endl;
 
 
 			Paket packet;
@@ -149,7 +148,8 @@ void main()
 			cout <<"Vloz suradnipe X (stlac enter) Y (stlac enter)"<< endl;
 			std::cin >> packet.x >> packet.y;
 
-			char* tmp = reinterpret_cast<char*>(&packet);
+			char* tmp = reinterpret_cast<char*>(&packet); // problem? 
+			cout << "tu sa vytvara packet pre klienta v pakete je " << packet.x << " "<<packet.y << endl;
 			int sendResult = send(clientSocket, tmp, sizeof(packet) + 1, 0);
 			if (sendResult != SOCKET_ERROR)
 			{
@@ -206,6 +206,7 @@ void main()
 		//4.POSIELANIE A DOSTAVANIE INFORMACII
 		char buffer[sizeof(Paket)];
 		Paket msg;
+		
 		biznisLogika nepriatel;
 
 		nepriatel.print();
@@ -213,15 +214,16 @@ void main()
 
 
 		do {
-
+			
 
 			cout<< "Vloz suradnipe X (stlac enter) Y (stlac enter) "<< endl;
-			cin >> msg.x >> msg.y;
-
-			if ((msg.x > 0 && msg.y > 0) && (msg.x < 16 && msg.y <16)){
+			cin >> msg.x;
+			cin	>> msg.y;
+			cout << "poslal si X "<<msg.x<< "Y " << msg.y << endl;
+			if ((msg.x >= 0 && msg.y >= 0) && (msg.x < 16 && msg.y <16)){
 				//Poslanie packetu s informaciami
 
-				char* tmp = reinterpret_cast<char*>(&msg);
+				char* tmp = reinterpret_cast<char*>(&msg); // problem? 
 				int sendResult = send(sock, tmp, sizeof(Paket) + 1, 0);
 
 				if (sendResult != SOCKET_ERROR)
@@ -233,12 +235,15 @@ void main()
 					if (bytesReceived > 0) {
 
 						cout << "Hrac poslal tieto suradnice >: X : " << vysledok->x << ", Y : " << vysledok->y << endl;
-						cout << "Result on Player board: " << endl;
-						cout << "vysledok na strane hraca je : " << nepriatel.nastavPolohuSuradnic(vysledok->x, vysledok->y) << endl;
+						//cout << "Result on Player board: " << endl;
+						cout << "od hraca ktory ti poslal udaje sa stal tento vysledok : " << nepriatel.nastavPolohuSuradnic(vysledok->x, vysledok->y) << endl;
 
 					}
 				}
 
+			}
+			else {
+				cout << "packet values is x" << msg.x << " y " << msg.y << " dlzka" << msg.dlzka << endl;
 			}
 		} while (msg.x > 0 && msg.y > 0);
 		cout << "zadal si 0 0 " << endl;
