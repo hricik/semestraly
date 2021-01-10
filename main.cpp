@@ -333,3 +333,31 @@ void zapisDoSuboru(string n1, string n2, string n3) {
 
 }
 */
+
+/*int overCislo(int rozsah) {
+	int cislo;
+	bool inputJeDobry;
+	do
+		{
+			cout << "\nVloz cislo:"
+				cin >> a;
+			if (cin.fail())
+			{
+				//Clear the fail state.
+				cin.clear();
+				//Ignore the rest of the wrong user input, till the end of the line.
+				cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+				cout << "\nZadal si neplatni vstup:"
+			}
+			else
+			{
+				inputJeDobry = false;
+			}
+			if (cislo > rozsah) {
+				cout << "\nZadal si moc velke cislo:"
+					inputJeDobry = true;
+			}
+		} while (!inputJeDobry);
+		return cislo;
+
+}*/
