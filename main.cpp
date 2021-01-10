@@ -19,16 +19,31 @@ struct Paket {
 
 using namespace std;
 
-/*int overCislo(int rozsah) { nestiham... 
+/*int overCislo(int rozsah) {
 	int cislo;
-	bool inputJeDobry = true;
-	while (!(cin >> cislo))
-	{
-		cin.clear(); // clear failbit from character
-
-		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ignore bad input
-		cout << "U've entered not an integer!!" << endl;
-	}
+	bool inputJeDobry;
+	do
+		{
+		cout << "\nVloz cislo:";
+				cin >> cislo;
+			if (cin.fail())
+			{
+				//Clear the fail state.
+				cin.clear();
+				//Ignore the rest of the wrong user input, till the end of the line.
+				//cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+				cout << "\nZadal si neplatni vstup:";
+			}
+			else
+			{
+				inputJeDobry = false;
+			}
+			if (cislo > rozsah) {
+				cout << "\nZadal si moc velke cislo:";
+					inputJeDobry = true;
+			}
+		} while (!inputJeDobry);
+		return cislo;
 }*/
 
 void inicializujStartProgramu() {
