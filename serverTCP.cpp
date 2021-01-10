@@ -5,19 +5,19 @@ serverTCP::serverTCP(std::string ipAddress, int port, MessageReceivedHandler_S h
 {
 
 }
-serverTCP::~serverTCP() 
+serverTCP::~serverTCP()
 {
 	CleanUp();
 }
 
 //send masage to the specified client
-void serverTCP::Send(int clientSocket, std::string msg) 
+void serverTCP::Send(int clientSocket, std::string msg)
 {
 	send(clientSocket, msg.c_str(), msg.size() + 1, 0);
 
 }
 //inicialization winsock
-bool serverTCP::Init() 
+bool serverTCP::Init()
 {
 	WSAData data;
 	WORD ver = MAKEWORD(2, 2);
@@ -26,34 +26,34 @@ bool serverTCP::Init()
 }
 
 // the main proccesing loop
-void serverTCP::Run() 
+void serverTCP::Run()
 {
 	char buff[MAX_BUFFER_SIZE];
 	while (true) {
 		//create to listening socket
 		SOCKET listening = CreateSocket();
-		if(listening == INVALID_SOCKET) {
+		if (listening == INVALID_SOCKET) {
 			break;
 		}
 		std::cout << "sokeres" << std::endl;
 		SOCKET client = WaitForConnection(listening);
-		if(client != INVALID_SOCKET) 
+		if (client != INVALID_SOCKET)
 		{
 			closesocket(listening);
 			int BytesReceived = 0;
 			std::string message;
 			do {
-				
+
 				std::getline(std::cin, message);
-				if (message.size() > 0) 
+				if (message.size() > 0)
 				{
 					Send(client, message);
 				}
 				ZeroMemory(buff, MAX_BUFFER_SIZE);
-				BytesReceived = recv(client, buff,MAX_BUFFER_SIZE,0);
-				if(BytesReceived > 0) 
+				BytesReceived = recv(client, buff, MAX_BUFFER_SIZE, 0);
+				if (BytesReceived > 0)
 				{
-					if (MessageReceived != NULL) 
+					if (MessageReceived != NULL)
 					{
 						MessageReceived(this, client, std::string(buff, 0, BytesReceived));
 						//PrintMessage(buff);
@@ -68,12 +68,12 @@ void serverTCP::Run()
 
 }
 
-void serverTCP::CleanUp() 
+void serverTCP::CleanUp()
 {
 	WSACleanup();
 }
 
-SOCKET serverTCP::CreateSocket() 
+SOCKET serverTCP::CreateSocket()
 {
 	SOCKET listening = socket(AF_INET, SOCK_STREAM, 0);
 	if (listening != INVALID_SOCKET) {
@@ -84,7 +84,7 @@ SOCKET serverTCP::CreateSocket()
 		int bindOK = bind(listening, (sockaddr*)&hint, sizeof(hint));
 		if (bindOK != SOCKET_ERROR) {
 			int listenOK = listen(listening, SOMAXCONN);
-			if (listenOK == SOCKET_ERROR) 
+			if (listenOK == SOCKET_ERROR)
 			{
 				return -1;
 			}
@@ -99,15 +99,14 @@ SOCKET serverTCP::CreateSocket()
 
 void serverTCP::PrintMessage(std::string data) {
 
-	std::cout <<"Klient odpoveda : "<< data << std::endl;
+	std::cout << "Klient odpoveda : " << data << std::endl;
 
 }
 
 //wait for connection
 SOCKET serverTCP::WaitForConnection(SOCKET listening) {
 	SOCKET client = accept(listening, NULL, NULL);
-	
+
 	return client;
 }
-
 
