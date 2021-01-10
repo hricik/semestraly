@@ -1,8 +1,6 @@
 #include <iostream>
 #include <WS2tcpip.h>
 #include <string>
-#include "serverTCP.h"
-#include "ClientTCP.h"
 #include <fstream>
 #pragma warning(disable : 4996
 
