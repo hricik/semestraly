@@ -39,7 +39,6 @@ void main()
 	cout << "#######################################################################" << endl;
 	cout << "1 - Server" << endl;
 	cout << "2 - Client" << endl;
-	cout << "3 - Navody" << endl;
 	cout << "4 - pravidla hry" << endl;
 	cout << "#######################################################################" << endl;
 
@@ -133,7 +132,7 @@ void main()
 			string odpov = nepriat_h_pole.nastavPolohuSuradnic(msgrcv->x, msgrcv->y);
 
 			cout << "Hrac poslal tieto suradnice >: X :" << msgrcv->x << ", Y :" << msgrcv->y << endl;
-			std::cout << "vysledok hraca, ktory poslal suradnice je : " << odpov <<endl;
+			std::cout << "vysledok hraca, ktory poslal suradnice je : " << odpov << endl;
 
 
 			Paket packet;
@@ -145,11 +144,11 @@ void main()
 
 			cout << endl;
 			cout << endl;
-			cout <<"Vloz suradnipe X (stlac enter) Y (stlac enter)"<< endl;
+			cout << "Vloz suradnipe X (stlac enter) Y (stlac enter)" << endl;
 			std::cin >> packet.x >> packet.y;
 
 			char* tmp = reinterpret_cast<char*>(&packet); // problem? 
-			cout << "tu sa vytvara packet pre klienta v pakete je " << packet.x << " "<<packet.y << endl;
+			cout << "tu sa vytvara packet pre klienta v pakete je " << packet.x << " " << packet.y << endl;
 			int sendResult = send(clientSocket, tmp, sizeof(packet) + 1, 0);
 			if (sendResult != SOCKET_ERROR)
 			{
@@ -206,21 +205,21 @@ void main()
 		//4.POSIELANIE A DOSTAVANIE INFORMACII
 		char buffer[sizeof(Paket)];
 		Paket msg;
-		
+
 		biznisLogika nepriatel;
 
 		nepriatel.print();
-		
+
 
 
 		do {
-			
 
-			cout<< "Vloz suradnipe X (stlac enter) Y (stlac enter) "<< endl;
+
+			cout << "Vloz suradnipe X (stlac enter) Y (stlac enter) " << endl;
 			cin >> msg.x;
-			cin	>> msg.y;
-			cout << "poslal si X "<<msg.x<< "Y " << msg.y << endl;
-			if ((msg.x >= 0 && msg.y >= 0) && (msg.x < 16 && msg.y <16)){
+			cin >> msg.y;
+			cout << "poslal si X " << msg.x << "Y " << msg.y << endl;
+			if ((msg.x >= 0 && msg.y >= 0) && (msg.x < 16 && msg.y < 16)) {
 				//Poslanie packetu s informaciami
 
 				char* tmp = reinterpret_cast<char*>(&msg); // problem? 
@@ -256,16 +255,26 @@ void main()
 
 		break;
 	}
-	case 3:
-		cout << "TU BUDE NAVOD HRY" << endl;
+	case 3: {
+		std::cout << "\x1B[2J\x1B[H";
+		cout << "              " << endl;
+		cout << "                           Pravidla hry su nasledujuce" << endl;
+		cout << "              " << endl;
+		cout << "Pred zaciatkom hry je dolezite aby si kazdy hrac zvoli ci chce vystupova ako klient alebo ako server!" << endl;
+		cout << "                    Obaja hraci nikdy nemozu vystupovat pod rovnakym vyberom!" << endl;
+		cout << "              " << endl;
+		cout << "Na zaciatku kazdej hry si hraci najskor zvolia rozmiestnenie svojich bojovich lodi " << endl;
+		cout << "Nezabudnite si rozmiestnenie lodi poriadne premysliet.V rozmiestneni je kluc k uspechu!" << endl;
+		cout << "Po rozmiesneni lodi nastava start hry.Hraci postupne klikaju na vykreslenu plochu a snazia " << endl;
+		cout << "sa lokalizovat lode svojho supera.VITAZOM sa stava hrac ktori ako prvi najde vsetky lode  " << endl;
+		cout << "svojho nepriatela,v tomto momente sa hra konci.Vela stastia vo vasich strategickich bitkach! " << endl;
 
-	case 4:
 
-		cout << "TU BUDU PRAVIDLA HRY" << endl;
 
 	default:
 
 		break;
+	}
 	}
 
 
@@ -323,6 +332,6 @@ void zapisDoSuboru(string n1, string n2, string n3) {
 		myfile << "----------------------------------------------.\n";
 	}
 	else cout << "Nepodarilo sa otvori súbor na zápis výsledkou!";
-	
+
 }
 */
